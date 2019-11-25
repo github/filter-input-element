@@ -1,19 +1,19 @@
-describe('custom-element', function() {
+describe('filter-input', function() {
   describe('element creation', function() {
     it('creates from document.createElement', function() {
-      const el = document.createElement('custom-element')
-      assert.equal('CUSTOM-ELEMENT', el.nodeName)
+      const el = document.createElement('filter-input')
+      assert.equal('FILTER-INPUT', el.nodeName)
     })
 
     it('creates from constructor', function() {
-      const el = new window.CustomElementElement()
-      assert.equal('CUSTOM-ELEMENT', el.nodeName)
+      const el = new window.FilterInputElement()
+      assert.equal('FILTER-INPUT', el.nodeName)
     })
   })
 
   describe('after tree insertion', function() {
     beforeEach(function() {
-      document.body.innerHTML = '<custom-element></custom-element>'
+      document.body.innerHTML = '<filter-input></filter-input>'
     })
 
     afterEach(function() {
@@ -21,7 +21,7 @@ describe('custom-element', function() {
     })
 
     it('initiates', function() {
-      const ce = document.querySelector('custom-element')
+      const ce = document.querySelector('filter-input')
       assert.equal(ce.textContent, ':wave:')
     })
   })
