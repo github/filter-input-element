@@ -12,17 +12,73 @@ describe('filter-input', function() {
   })
 
   describe('after tree insertion', function() {
+    let filterInput, input, list, emptyState
     beforeEach(function() {
-      document.body.innerHTML = '<filter-input></filter-input>'
+      document.body.innerHTML = `
+        <filter-input aria-owns="robots">
+          <label>
+            Filter robots
+            <input type="text" autofocus autocomplete="off">
+          </label>
+        </filter-input>
+        <div id="robots">
+          <ul data-filter-list>
+            <li>Bender</li>
+            <li>Hubot</li>
+            <li>Wall-E</li>
+            <li>BB-8</li>
+            <li>R2-D2</li>
+          </ul>
+          <p data-filter-empty-state hidden>0 robots found.</p>
+        </div>
+      `
+
+      filterInput = document.querySelector('filter-input')
+      input = filterInput.querySelector('input')
+      list = document.querySelector('[data-filter-list]')
+      emptyState = document.querySelector('[data-filter-empty-state]')
     })
 
     afterEach(function() {
       document.body.innerHTML = ''
     })
 
-    it('initiates', function() {
-      const ce = document.querySelector('filter-input')
-      assert.equal(ce.textContent, ':wave:')
+    it('filters', async function() {
+      const listener = once('filter-input-updated')
+      changeValue(input, 'hu')
+      const customEvent = await listener
+      const results = Array.from(list.children).filter(el => !el.hidden)
+      assert.equal(results.length, 1)
+      assert.equal(results[0].textContent, 'Hubot')
+      assert.equal(customEvent.detail.count, 1)
+      assert.equal(customEvent.detail.total, 5)
+      changeValue(input, 'boom')
+      assert.notOk(emptyState.hidden, 'Empty state should be shown')
+    })
+
+    it('filters with custom filter', async function() {
+      filterInput.filter = (_item, itemText) => {
+        return {match: itemText.indexOf('-') >= 0}
+      }
+      const listener = once('filter-input-updated')
+      changeValue(input, ':)')
+      const customEvent = await listener
+      const results = Array.from(list.children).filter(el => !el.hidden)
+      assert.equal(results.length, 3)
+      assert.equal(results[0].textContent, 'Wall-E')
+      assert.equal(customEvent.detail.count, 3)
+      assert.equal(customEvent.detail.total, 5)
     })
   })
 })
+
+function changeValue(input, value) {
+  input.value = value
+  input.dispatchEvent(new Event('change', {bubbles: true}))
+}
+
+function once(eventName) {
+  return new Promise(resolve => {
+    document.addEventListener(eventName, resolve, {once: true})
+  })
+}

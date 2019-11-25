@@ -1,21 +1,36 @@
-# &lt;custom-element&gt; element
+# &lt;filter-input&gt; element
 
-Boilerplate for creating a custom element.
+Custom element used to create a filter input.
 
 ## Installation
 
 ```
-$ npm install @github/custom-element-element
+$ npm install @github/filter-input-element
 ```
 
 ## Usage
 
 ```js
-import '@github/custom-element-element'
+import '@github/filter-input-element'
 ```
 
 ```html
-<custom-element></custom-element>
+<filter-input aria-owns="robots">
+  <label>
+    Filter robots
+    <input type="text" autofocus autocomplete="off">
+  </label>
+</filter-input>
+<div id="robots">
+  <ul data-filter-list>
+    <li>Bender</li>
+    <li>Hubot</li>
+    <li>Wall-E</li>
+    <li>BB-8</li>
+    <li>R2-D2</li>
+  </ul>
+  <p data-filter-empty-state hidden>0 robots found.</p>
+</div>
 ```
 
 ## Browser support
