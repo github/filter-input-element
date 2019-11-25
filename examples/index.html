@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>custom-element demo</title>
+</head>
+<body>
+  <custom-element></custom-element>
+  
+  <script>
+    const script = document.createElement('script')
+    if (window.location.hostname.endsWith('github.io')) {
+      script.src = "https://unpkg.com/@github/custom-element-boilerplate@latest/dist/index.umd.js"
+    } else {
+      script.src = "../dist/index.umd.js"
+    }
+    document.body.appendChild(script)
+  </script>
+</body>
+</html>
