@@ -1,6 +1,6 @@
 # &lt;filter-input&gt; element
 
-Custom element used to create a filter input.
+Display elements in a subtree that match filter input text.
 
 ## Installation
 
