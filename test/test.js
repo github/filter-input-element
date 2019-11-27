@@ -27,7 +27,6 @@ describe('filter-input', function() {
             <li>Hubot</li>
             <li>Wall-E</li>
             <li>BB-8</li>
-            <li>R2-D2</li>
           </ul>
           <p data-filter-empty-state hidden>0 robots found.</p>
         </div>
@@ -51,7 +50,7 @@ describe('filter-input', function() {
       assert.equal(results.length, 1)
       assert.equal(results[0].textContent, 'Hubot')
       assert.equal(customEvent.detail.count, 1)
-      assert.equal(customEvent.detail.total, 5)
+      assert.equal(customEvent.detail.total, 4)
       changeValue(input, 'boom')
       assert.notOk(emptyState.hidden, 'Empty state should be shown')
     })
@@ -64,10 +63,28 @@ describe('filter-input', function() {
       changeValue(input, ':)')
       const customEvent = await listener
       const results = Array.from(list.children).filter(el => !el.hidden)
-      assert.equal(results.length, 3)
+      assert.equal(results.length, 2)
       assert.equal(results[0].textContent, 'Wall-E')
-      assert.equal(customEvent.detail.count, 3)
-      assert.equal(customEvent.detail.total, 5)
+      assert.equal(customEvent.detail.count, 2)
+      assert.equal(customEvent.detail.total, 4)
+    })
+
+    it('filters again with the same value when a change event is fired', async function() {
+      const listener = once('filter-input-updated')
+      changeValue(input, '-')
+      const customEvent = await listener
+      assert.equal(customEvent.detail.count, 2)
+      assert.equal(customEvent.detail.total, 4)
+
+      const newRobot = document.createElement('li')
+      newRobot.textContent = 'R2-D2'
+      list.append(newRobot)
+
+      const listener2 = once('filter-input-updated')
+      changeValue(input, '-')
+      const customEvent2 = await listener2
+      assert.equal(customEvent2.detail.count, 3)
+      assert.equal(customEvent2.detail.total, 5)
     })
   })
 })

@@ -17,9 +17,9 @@ class FilterInputElement extends HTMLElement {
     super()
     this.currentQuery = null
     this.filter = null
-    this.debounceInputChange = debounce(() => filterResults(this))
+    this.debounceInputChange = debounce(() => filterResults(this, true))
     this.boundFilterResults = () => {
-      filterResults(this)
+      filterResults(this, false)
     }
   }
 
@@ -68,7 +68,7 @@ class FilterInputElement extends HTMLElement {
   }
 }
 
-async function filterResults(filterInput: FilterInputElement, checkCurrentQuery: boolean = true) {
+async function filterResults(filterInput: FilterInputElement, checkCurrentQuery: boolean = false) {
   const input = filterInput.input
   if (!input) return
   const query = input.value.toLowerCase()
