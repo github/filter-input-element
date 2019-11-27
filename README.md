@@ -101,6 +101,17 @@ fuzzyFilterInput.filter = (element, elementText, query) => {
 - `filter-input-start` (bubbles) - fired on `<filter-input>` when a filter action is about to start.
 - `filter-input-updated` (bubbles) - fired on `<filter-input>` when filter has finished. `event.detail.count` is the number of matches found, and `event.detail.total` is the total number of elements.
 
+To ensure that the client side update is communicated to assistive technologies, `filter-input-updated` event can be used to update filter results to screen readers. For example:
+
+```js
+const ariaLiveContainer = document.querySelector('[aria-live="assertive"]')
+document.addEventListener('filter-input-updated', event => {
+  ariaLiveContainer.textContent = `${event.detail.count} results found.`
+})
+```
+
+For more details on this technique, check out [Improving accessibility on GOV.UK search](https://technology.blog.gov.uk/2014/08/14/improving-accessibility-on-gov-uk-search/).
+
 ## Browser support
 
 Browsers without native [custom element support][support] require a [polyfill][].
