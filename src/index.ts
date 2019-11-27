@@ -139,8 +139,10 @@ function getText(filterableItem: HTMLElement) {
 function updateNewItem(newItem: HTMLElement, query: string) {
   const newItemText = newItem.querySelector('[data-filter-new-item-text]')
   if (newItemText) newItemText.textContent = query
-  const newItemInput = newItem.querySelector('[data-filter-new-item-value]')
-  if (newItemInput instanceof HTMLInputElement) newItemInput.value = query
+  const newItemValue = newItem.querySelector('[data-filter-new-item-value]')
+  if (newItemValue instanceof HTMLInputElement || newItemValue instanceof HTMLButtonElement) {
+    newItemValue.value = query
+  }
 }
 
 function toggleBlankslate(container: HTMLElement, force: boolean) {

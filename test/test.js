@@ -12,7 +12,7 @@ describe('filter-input', function() {
   })
 
   describe('after tree insertion', function() {
-    let filterInput, input, list, emptyState
+    let filterInput, input, list, emptyState, newItem
     beforeEach(function() {
       document.body.innerHTML = `
         <filter-input aria-owns="robots">
@@ -29,6 +29,9 @@ describe('filter-input', function() {
             <li>BB-8</li>
           </ul>
           <p data-filter-empty-state hidden>0 robots found.</p>
+          <form data-filter-new-item hidden>
+            <button data-filter-new-item-value>Create "<span data-filter-new-item-text></span>"</button>
+          </form>
         </div>
       `
 
@@ -36,13 +39,30 @@ describe('filter-input', function() {
       input = filterInput.querySelector('input')
       list = document.querySelector('[data-filter-list]')
       emptyState = document.querySelector('[data-filter-empty-state]')
+      newItem = document.querySelector('[data-filter-new-item]')
     })
 
     afterEach(function() {
       document.body.innerHTML = ''
     })
 
-    it('filters', async function() {
+    it('filters and toggles new item form', async function() {
+      const listener = once('filter-input-updated')
+      changeValue(input, 'hu')
+      const customEvent = await listener
+      assert.equal(customEvent.detail.count, 1)
+      assert.equal(customEvent.detail.total, 4)
+
+      changeValue(input, 'boom')
+      assert.notOk(newItem.hidden, 'New item form should be shown')
+      assert.equal(newItem.querySelector('[data-filter-new-item-value]').value, 'boom')
+      assert.equal(newItem.querySelector('[data-filter-new-item-text]').textContent, 'boom')
+    })
+
+    it('filters and toggles blankslate', async function() {
+      // Remove new item form, which is prioritized over blankslate
+      newItem.remove()
+
       const listener = once('filter-input-updated')
       changeValue(input, 'hu')
       const customEvent = await listener
