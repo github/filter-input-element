@@ -1,7 +1,7 @@
 {
   "name": "@github/filter-input-element",
   "version": "0.0.1",
-  "description": "Custom element used to create a filter input.",
+  "description": "Display elements in a subtree that match filter input text.",
   "main": "dist/umd/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
