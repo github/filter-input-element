@@ -1,4 +1,4 @@
-# &lt;filter-input&gt; element
+# &lt;filter-input&gt; element ![](https://github.com/github/filter-input-element/workflows/Node%20CI/badge.svg)
 
 Display elements in a subtree that match filter input text.
 
