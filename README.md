@@ -68,7 +68,7 @@ Use `[data-filter-empty-state]` to specify an element to be displayed when no re
 </div>
 ```
 
-#### Create new actions
+#### Create new item
 
 Use `[data-filter-new-item]` to include an item to create a new instance when no exact match were found. The element with `[data-filter-new-text]`'s text content will be set to the input value. You can also use `[data-filter-new-value]` to set an input value to the query param.
 
@@ -78,9 +78,11 @@ Use `[data-filter-new-item]` to include an item to create a new instance when no
     <a href="/bender">Bender</a>
     <a href="/hubot">Hubot</a>
   </div>
-  <a href="/new" data-filter-new-item hidden>
-    Create new robot named "<span data-filter-new-item-text></span>"
-  </a>
+  <form action="/new" data-filter-new-item hidden>
+    <button name="robot" data-filter-new-item-value>
+      Create robot "<span data-filter-new-item-text></span>"
+    </button>
+  </form>
 </div>
 ```
 
@@ -95,6 +97,8 @@ fuzzyFilterInput.filter = (element, elementText, query) => {
   return {match: boolean, hideNew: boolean}
 }
 ```
+
+`match`(required) indicates whether the item should be shown. `hideNew` (optional) will determine whether the "Create new item" element should be hidden. For example, when an exact match is found, the "create new item" option should be hidden.
 
 ## Events
 
