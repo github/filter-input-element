@@ -5,16 +5,24 @@
   <title>filter-input demo</title>
 </head>
 <body>
-  <filter-input></filter-input>
+  <filter-input aria-owns="robots">
+    <label>
+      Filter robots
+      <input type="text" autofocus autocomplete="off">
+    </label>
+  </filter-input>
+  <div id="robots">
+    <ul data-filter-list>
+      <li>Bender</li>
+      <li>Hubot</li>
+      <li>Wall-E</li>
+      <li>BB-8</li>
+      <li>R2-D2</li>
+    </ul>
+    <p data-filter-empty-state hidden>0 robots found.</p>
+  </div>
 
-  <script>
-    const script = document.createElement('script')
-    if (window.location.hostname.endsWith('github.io')) {
-      script.src = "https://unpkg.com/@github/filter-input-boilerplate@latest/dist/index.umd.js"
-    } else {
-      script.src = "../dist/index.umd.js"
-    }
-    document.body.appendChild(script)
-  </script>
+  <script type="module" src="https://unpkg.com/@github/filter-input-element@latest/dist/index.js"></script>
+  <!-- <script type="module" src="../dist/index.js"></script> -->
 </body>
 </html>
