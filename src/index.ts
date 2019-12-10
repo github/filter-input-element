@@ -71,7 +71,7 @@ class FilterInputElement extends HTMLElement {
 async function filterResults(filterInput: FilterInputElement, checkCurrentQuery: boolean = false) {
   const input = filterInput.input
   if (!input) return
-  const query = input.value.toLowerCase()
+  const query = input.value.trim()
   const id = filterInput.getAttribute('aria-owns')
   if (!id) return
   const container = document.getElementById(id)
@@ -124,7 +124,7 @@ async function filterResults(filterInput: FilterInputElement, checkCurrentQuery:
 }
 
 function matchSubstring(_item: HTMLElement, itemText: string, query: string): MatchResult {
-  const match = itemText.indexOf(query) !== -1
+  const match = itemText.toLowerCase().indexOf(query.toLowerCase()) !== -1
   return {
     match,
     hideNew: itemText === query
@@ -133,7 +133,7 @@ function matchSubstring(_item: HTMLElement, itemText: string, query: string): Ma
 
 function getText(filterableItem: HTMLElement) {
   const target = filterableItem.querySelector('[data-filter-item-text]') || filterableItem
-  return (target.textContent || '').trim().toLowerCase()
+  return (target.textContent || '').trim()
 }
 
 function updateNewItem(newItem: HTMLElement, query: string) {

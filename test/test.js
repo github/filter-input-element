@@ -53,10 +53,10 @@ describe('filter-input', function() {
       assert.equal(customEvent.detail.count, 1)
       assert.equal(customEvent.detail.total, 4)
 
-      changeValue(input, 'boom')
+      changeValue(input, 'BB-8 robot')
       assert.notOk(newItem.hidden, 'New item form should be shown')
-      assert.equal(newItem.querySelector('[data-filter-new-item-value]').value, 'boom')
-      assert.equal(newItem.querySelector('[data-filter-new-item-text]').textContent, 'boom')
+      assert.equal(newItem.querySelector('[data-filter-new-item-value]').value, 'BB-8 robot')
+      assert.equal(newItem.querySelector('[data-filter-new-item-text]').textContent, 'BB-8 robot')
     })
 
     it('filters and toggles blankslate', async function() {
