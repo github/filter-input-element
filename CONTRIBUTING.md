@@ -1,7 +1,7 @@
 ## Contributing
 
-[fork]: https://github.com/github/file-attachment-element/fork
-[pr]: https://github.com/github/file-attachment-element/compare
+[fork]: https://github.com/github/filter-input-element/fork
+[pr]: https://github.com/github/filter-input-element/compare
 [code-of-conduct]: CODE_OF_CONDUCT.md
 
 Hi there! We're thrilled that you'd like to contribute to this project. Your help is essential for keeping it great.
