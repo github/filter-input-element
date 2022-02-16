@@ -151,7 +151,7 @@ function toggleBlankslate(container: HTMLElement, force: boolean) {
 }
 
 function debounce(callback: () => void) {
-  let timeout: number
+  let timeout: ReturnType<typeof setTimeout>
   return function() {
     clearTimeout(timeout)
     timeout = setTimeout(() => {
