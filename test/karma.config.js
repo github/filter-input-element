@@ -1,3 +1,6 @@
+// eslint-disable-next-line no-undef
+process.env.CHROME_BIN = require('chromium').path
+
 module.exports = function(config) {
   config.set({
     frameworks: ['mocha', 'chai'],
@@ -12,7 +15,7 @@ module.exports = function(config) {
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
-    browsers: ['ChromeHeadless', 'FirefoxHeadless'],
+    browsers: ['ChromeHeadless'],
     autoWatch: false,
     singleRun: true,
     concurrency: Infinity
