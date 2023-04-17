@@ -167,6 +167,9 @@ declare global {
   interface Window {
     FilterInputElement: typeof FilterInputElement
   }
+  interface HTMLElementTagNameMap {
+    'filter-input': FilterInputElement
+  }
 }
 
 if (!window.customElements.get('filter-input')) {
