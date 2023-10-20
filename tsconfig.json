@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "esnext",
+    "module": "nodenext",
     "target": "es2017",
     "lib": ["es2018", "dom"],
     "strict": true,
@@ -9,7 +9,5 @@
     "removeComments": true,
     "preserveConstEnums": true
   },
-  "files": [
-    "src/index.ts"
-  ]
+  "files": ["src/index.ts"]
 }

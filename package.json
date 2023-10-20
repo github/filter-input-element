@@ -2,9 +2,16 @@
   "name": "@github/filter-input-element",
   "version": "0.1.1",
   "description": "Display elements in a subtree that match filter input text.",
-  "main": "dist/umd/index.js",
+  "main": "dist/index.js",
+  "type": "module",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./define": "./dist/index.js",
+    "./clipboard-copy": "./dist/clipboard-copy-element.js",
+    "./clipboard-copy/define": "./dist/clipboard-copy-element-define.js"
+  },
   "license": "MIT",
   "repository": "github/filter-input-element",
   "files": [
@@ -12,25 +19,31 @@
   ],
   "scripts": {
     "clean": "rm -rf dist",
-    "lint": "github-lint",
-    "prebuild": "npm run clean && npm run lint",
-    "build": "tsc --outDir dist/umd --module umd && tsc",
-    "pretest": "npm run build",
-    "test": "karma start test/karma.config.js",
+    "lint": "eslint . --ext .js,.ts && tsc --noEmit",
+    "lint:fix": "npm run lint -- --fix",
+    "prebuild": "npm run clean && npm run lint && mkdir dist",
+    "bundle": "esbuild --bundle dist/index.js --keep-names --outfile=dist/bundle.js --format=esm",
+    "build": "tsc && npm run bundle && npm run manifest",
     "prepublishOnly": "npm run build",
-    "postpublish": "npm publish --ignore-scripts --@github:registry='https://npm.pkg.github.com'"
+    "pretest": "npm run build",
+    "test": "web-test-runner",
+    "postpublish": "npm publish --ignore-scripts --@github:registry='https://npm.pkg.github.com'",
+    "manifest": "custom-elements-manifest analyze"
   },
+  "prettier": "@github/prettier-config",
   "devDependencies": {
-    "chai": "^4.1.2",
-    "chromium": "^3.0.3",
-    "eslint": "^6.5.1",
-    "eslint-plugin-github": "^3.2.0",
-    "karma": "^6.4.2",
-    "karma-chai": "^0.1.0",
-    "karma-chrome-launcher": "^3.1.0",
-    "karma-mocha": "^2.0.1",
-    "karma-mocha-reporter": "^2.2.5",
-    "mocha": "^10.2.0",
-    "typescript": "^3.6.4"
+    "@custom-elements-manifest/analyzer": "^0.9.0",
+    "@github/prettier-config": "^0.0.6",
+    "@open-wc/testing": "^3.2.0",
+    "@typescript-eslint/eslint-plugin": "^6.8.0",
+    "@typescript-eslint/parser": "^6.8.0",
+    "@web/dev-server-esbuild": "^0.4.3",
+    "@web/test-runner": "^0.17.2",
+    "@web/test-runner-playwright": "^0.10.2",
+    "esbuild": "^0.19.5",
+    "eslint": "^8.51.0",
+    "eslint-plugin-custom-elements": "^0.0.8",
+    "eslint-plugin-github": "^4.10.1",
+    "typescript": "^5.2.2"
   }
 }
