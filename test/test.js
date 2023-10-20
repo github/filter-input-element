@@ -1,19 +1,26 @@
-describe('filter-input', function() {
-  describe('element creation', function() {
-    it('creates from document.createElement', function() {
+import {assert} from '@open-wc/testing'
+import {FilterInputElement} from '../src/index.ts'
+
+describe('filter-input', function () {
+  describe('element creation', function () {
+    it('creates from document.createElement', function () {
       const el = document.createElement('filter-input')
       assert.equal('FILTER-INPUT', el.nodeName)
     })
 
-    it('creates from constructor', function() {
-      const el = new window.FilterInputElement()
+    it('creates from constructor', function () {
+      const el = new FilterInputElement()
       assert.equal('FILTER-INPUT', el.nodeName)
     })
   })
 
-  describe('after tree insertion', function() {
-    let filterInput, input, list, emptyState, newItem
-    beforeEach(function() {
+  describe('after tree insertion', function () {
+    let filterInput
+    let input
+    let list
+    let emptyState
+    let newItem
+    beforeEach(function () {
       document.body.innerHTML = `
         <filter-input aria-owns="robots">
           <label>
@@ -42,11 +49,11 @@ describe('filter-input', function() {
       newItem = document.querySelector('[data-filter-new-item]')
     })
 
-    afterEach(function() {
+    afterEach(function () {
       document.body.innerHTML = ''
     })
 
-    it('filters and toggles new item form', async function() {
+    it('filters and toggles new item form', async function () {
       const listener = once('filter-input-updated')
       changeValue(input, 'hu')
       const customEvent = await listener
@@ -59,7 +66,7 @@ describe('filter-input', function() {
       assert.equal(newItem.querySelector('[data-filter-new-item-text]').textContent, 'BB-8 robot')
     })
 
-    it('filters and toggles blankslate', async function() {
+    it('filters and toggles blankslate', async function () {
       // Remove new item form, which is prioritized over blankslate
       newItem.remove()
 
@@ -75,7 +82,7 @@ describe('filter-input', function() {
       assert.notOk(emptyState.hidden, 'Empty state should be shown')
     })
 
-    it('filters with custom filter', async function() {
+    it('filters with custom filter', async function () {
       filterInput.filter = (_item, itemText) => {
         return {match: itemText.indexOf('-') >= 0}
       }
@@ -89,7 +96,7 @@ describe('filter-input', function() {
       assert.equal(customEvent.detail.total, 4)
     })
 
-    it('filters again with the same value when a change event is fired', async function() {
+    it('filters again with the same value when a change event is fired', async function () {
       const listener = once('filter-input-updated')
       changeValue(input, '-')
       const customEvent = await listener
