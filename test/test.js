@@ -82,6 +82,24 @@ describe('filter-input', function () {
       assert.notOk(emptyState.hidden, 'Empty state should be shown')
     })
 
+    it('does not start filtering again for an unchanged debounced query', async function () {
+      input.focus()
+      changeValue(input, 'Hubot')
+      const events = []
+      filterInput.addEventListener('filter-input-start', () => events.push('start'))
+      filterInput.addEventListener('filter-input-updated', () => events.push('updated'))
+
+      input.dispatchEvent(new Event('input', {bubbles: true}))
+      await new Promise(resolve => setTimeout(resolve, 350))
+      assert.deepEqual(events, [])
+
+      input.value = 'Bender'
+      const updated = once('filter-input-updated')
+      input.dispatchEvent(new Event('input', {bubbles: true}))
+      await updated
+      assert.deepEqual(events, ['start', 'updated'])
+    }).timeout(1500)
+
     it('filters with custom filter', async function () {
       filterInput.filter = (_item, itemText) => {
         return {match: itemText.indexOf('-') >= 0}

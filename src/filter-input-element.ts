@@ -76,13 +76,14 @@ async function filterResults(filterInput: FilterInputElement, checkCurrentQuery:
   const list = container.hasAttribute('data-filter-list') ? container : container.querySelector('[data-filter-list]')
   if (!list) return
 
+  if (checkCurrentQuery && filterInput.currentQuery === query) return
+
   filterInput.dispatchEvent(
     new CustomEvent('filter-input-start', {
       bubbles: true,
     }),
   )
 
-  if (checkCurrentQuery && filterInput.currentQuery === query) return
   filterInput.currentQuery = query
 
   const filter = filterInput.filter || matchSubstring
