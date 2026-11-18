@@ -31,6 +31,11 @@
     "manifest": "custom-elements-manifest analyze"
   },
   "prettier": "@github/prettier-config",
+  "overrides": {
+    "get-uri": {
+      "basic-ftp": "^6.2.6"
+    }
+  },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.9.0",
     "@github/prettier-config": "^0.0.6",
