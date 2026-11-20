@@ -13,6 +13,9 @@
     "./clipboard-copy/define": "./dist/clipboard-copy-element-define.js"
   },
   "license": "MIT",
+  "engines": {
+    "node": ">=24"
+  },
   "repository": "github/filter-input-element",
   "files": [
     "dist"
@@ -38,7 +41,7 @@
     "@typescript-eslint/eslint-plugin": "^6.8.0",
     "@typescript-eslint/parser": "^6.8.0",
     "@web/dev-server-esbuild": "^0.4.3",
-    "@web/test-runner": "^0.19.0",
+    "@web/test-runner": "^1.0.1",
     "@web/test-runner-playwright": "^0.11.0",
     "esbuild": "^0.28.1",
     "eslint": "^8.51.0",
