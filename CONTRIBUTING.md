@@ -12,7 +12,7 @@ Please note that this project is released with a [Contributor Code of Conduct][c
 
 ## Submitting a pull request
 
-Development requires Node.js 22 or newer. Use Node.js 24 to match CI.
+Development requires Node.js 24 or newer. Use Node.js 24 to match CI.
 
 0. [Fork][fork] and clone the repository
 0. Configure and install the dependencies: `script/bootstrap`
