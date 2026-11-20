@@ -13,6 +13,9 @@
     "./clipboard-copy/define": "./dist/clipboard-copy-element-define.js"
   },
   "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
   "repository": "github/filter-input-element",
   "files": [
     "dist"
